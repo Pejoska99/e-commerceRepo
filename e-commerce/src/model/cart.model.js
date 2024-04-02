@@ -6,7 +6,7 @@ const shoppingCartSchema = new Schema({
         ref: 'Product' }] 
 });
 
-const ShoppingCart = model("carts", shoppingCartSchema);
+const ShoppingCart = model("Shoppingcart", shoppingCartSchema);
 
 export default ShoppingCart;
 
