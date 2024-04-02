@@ -19,12 +19,30 @@
 import Product from "../model/product.model.js";
 
 export default class ProductService {
-    static async getAll(){
-        const data = await Product.find({});
-        console.log(data);
-        return data;
-    }
+    // static async getAll(){
+    //     const data = await Product.find({});
+    //     console.log(data);
+    //     return data;
+    // }
     
+    static async getAll(queryData) {
+        console.log("Getting all products from service");
+        let products =  await Product.find();
+    
+
+    if(queryData) {
+        if (queryData.category === "true") {
+            products = products.filter(product => product.category === true);
+        }
+
+        if (queryData.name === "true") {
+            products = products.filter(product => product.name.includes(queryData.name));
+
+        }
+    }
+      return products
+
+    }
     static async getById(id) {
         const product = await Product.findById(id);
         console.log(product);
@@ -47,11 +65,7 @@ export default class ProductService {
         return await Product.findByIdAndDelete(id)
     }
 
-    // static async searchByCategory(category) {
-    //     const searchQuery = {};
-    //     if (category) searchQuery.category = category;
-    //     return await Product.find(searchQuery);
-    // }
+    
 
  
     

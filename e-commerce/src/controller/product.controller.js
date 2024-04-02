@@ -3,15 +3,29 @@
 import ProductService from "../services/product.service.js";
 
 export default class ProductController {
-    static async getProducts( req, res){
-        try {
-            const products = await ProductService.getAll();
-            res.send(products);
+    // static async getProducts( req, res){
+    //     try {
+    //         const products = await ProductService.getAll();
+    //         res.send(products);
             
-        } catch (error) {
-            res.status(400).send({message: error.message});
+    //     } catch (error) {
+    //         res.status(400).send({message: error.message});
 
             
+    //     }
+    // }
+
+    static async getProducts(req, res) {
+        try {
+            const queryData = {
+                category: req.query.category,
+                name: req.query.name
+
+            };
+            const products = await ProductService.getAll(queryData);
+            res.send(products);
+        } catch (error) {
+            res.status(400).send({ message: error.message }); 
         }
     }
 
@@ -56,23 +70,14 @@ export default class ProductController {
     try {
         const productId = req.params.id;
         await ProductService.delete(productId);
-        res.status(200).send({message:error.message})
+        res.status(200).send({ message: "Product successfully deleted"})
         
     } catch (error) {
+        res.status(500).send({ message: "Error deleting product", error: error.message });
         
     }
 
    }
 
-//    static async searchProductsByCategory(req, res) {
-//     try {
-//         const category = req.query.category;
-//         const products = await ProductService.searchByCategory(category);
-//         res.send(products)
-        
-//     } catch (error) {
-//         res.status(400).send({ message: error.message });
-        
-//     }
-//    }
+
 }

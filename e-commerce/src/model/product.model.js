@@ -11,6 +11,7 @@ const productSchema =  new Schema( {
         required: [true, "name is required"],
     },
     description: {
+      
         type: String,
         minLength: 20,
         maxLength: 300,
