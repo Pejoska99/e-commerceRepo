@@ -3,7 +3,7 @@ import Product from "../model/product.model.js";
 
 export default class ShoppingCartService {
     static async addToCart(productId) {
-        let cart = await ShoppingCart.findOne();
+        let cart = await ShoppingCart.findOne({ _id: productId });
         if (!cart) {
             cart = new ShoppingCart();
         }
@@ -12,6 +12,8 @@ export default class ShoppingCartService {
         if (!product) {
             throw new Error("Product not found");
         }
+
+        await product.save();
 
         cart.products.push(productId);
         await cart.save();
