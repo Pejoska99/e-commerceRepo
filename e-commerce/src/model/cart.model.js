@@ -1,18 +1,15 @@
 import { Schema, model } from "mongoose";
 
+
 const shoppingCartSchema = new Schema({
-    products: [
-        {
-            type:Array,
-            _id:"true",
-            required:[true, " products is required"]
-        }
-    ]
+    products: [{ type: Schema.Types.ObjectId, 
+        ref: 'Product' }] 
 });
 
-const ShoppingCart = model("ShoppingCart", shoppingCartSchema);
+const ShoppingCart = model("carts", shoppingCartSchema);
 
 export default ShoppingCart;
+
 
 
 
