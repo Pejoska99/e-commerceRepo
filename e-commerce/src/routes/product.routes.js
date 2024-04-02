@@ -14,5 +14,9 @@ router.post("", ProductController.createProduct);
 router.patch("/:id", ProductController.updateProduct);
 router.delete("/:id", ProductController.deleteProduct);
 
+router.post("/:id/reviews", ProductController.addReview);
+router.post("/:id/rating", ProductController.addRating);
+
+
 
 export default router;

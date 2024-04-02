@@ -3,8 +3,9 @@ import { Schema, model } from "mongoose";
 const shoppingCartSchema = new Schema({
     products: [
         {
-            type: Schema.Types.ObjectId,
-            ref: "Product"
+            type:Array,
+            _id:"true",
+            required:[true, " products is required"]
         }
     ]
 });

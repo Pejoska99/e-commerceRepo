@@ -65,6 +65,21 @@ export default class ProductService {
         return await Product.findByIdAndDelete(id)
     }
 
+    static async addReview(id, review) {
+        const product = await Product.findById(id);
+       product.reviews.push(review);
+       await product.save();
+       return product
+    }
+
+    static async addRating(id,rating) {
+        const product = await Product.findById(id);
+        product.rating = rating;
+        return await product.save();
+
+
+    }
+
     
 
  

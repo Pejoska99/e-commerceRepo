@@ -73,10 +73,33 @@ export default class ProductController {
         res.status(200).send({ message: "Product successfully deleted"})
         
     } catch (error) {
-        res.status(500).send({ message: "Error deleting product", error: error.message });
+        res.status(400).send({ message: "Error deleting product", error: error.message });
         
     }
 
+   }
+
+   static async addReview(req, res) {
+    try {
+        const productId = req.params.id;
+        const review = req.body.review;
+        await ProductService.addReview(productId, review);
+        res.status(200).send({message: "Review added successfully"})
+    } catch (error) {
+        res.status(400).send({ message: "Error adding review", error: error.message });
+    }
+   }
+
+   static async addRating(req, res) {
+   try {
+    const productId = req.params.id;
+    const rating = req.body.rating;
+    await ProductService.addRating(productId,rating);
+    res.status(200).send({ message: "Rating added successfully" });
+     
+   } catch (error) {
+    res.status(400).send({ message: "Error adding rating", error: error.message });
+   }
    }
 
 
