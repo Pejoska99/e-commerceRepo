@@ -19,30 +19,42 @@
 import Product from "../model/product.model.js";
 
 export default class ProductService {
-    // static async getAll(){
-    //     const data = await Product.find({});
-    //     console.log(data);
-    //     return data;
+  
+    
+    // static async getAll(queryData) {
+    //     console.log("Getting all products from service with query:", queryData); 
+    //     let products = await Product.find(queryData || {});
+    
+    //     if (queryData) {
+    //         if (queryData.category) {
+    //             products = products.filter((product) => product.category === queryData.category);
+    //         }
+    
+    //         if (queryData.name) {
+    //             products = products.filter((product) => product.name.includes(queryData.name));
+    //         }
+    //     }
+    
+    //     console.log("Filtered products:", products); 
+    //     return products;
     // }
-    
+
     static async getAll(queryData) {
-        console.log("Getting all products from service");
-        let products =  await Product.find();
+        console.log("Gettin all products from service with query:", queryData); 
+        let products;
+        if (queryData && (queryData.category || queryData.name)) {
+            
+            products = await Product.find(queryData);
+        } else {
+           
+            products = await Product.find();
+        }
+        
+        console.log("Filtered products:", products); 
+        return products;
+    }
     
 
-    if(queryData) {
-        if (queryData.category === "true") {
-            products = products.filter(product => product.category === true);
-        }
-
-        if (queryData.name === "true") {
-            products = products.filter(product => product.name.includes(queryData.name));
-
-        }
-    }
-      return products
-
-    }
     static async getById(id) {
         const product = await Product.findById(id);
         console.log(product);

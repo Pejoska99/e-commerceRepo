@@ -1,9 +1,10 @@
 import ShoppingCart from "../model/cart.model.js";
 import Product from "../model/product.model.js";
 
+
 export default class ShoppingCartService {
-    static async addToCart(productId) {
-        let cart = await ShoppingCart.findOne({ _id: productId });
+    static async addToCart(cartId, productId) {
+        let cart = await ShoppingCart.findById(cartId);
         if (!cart) {
             cart = new ShoppingCart();
         }
@@ -15,7 +16,7 @@ export default class ShoppingCartService {
 
         await product.save();
 
-        cart.products.push(productId);
+        cart.products.push(product);
         await cart.save();
 
         return cart;
@@ -41,6 +42,15 @@ export default class ShoppingCartService {
         }
         cart.products = cart.products.filter(product => product.toString() !== productId.toString());
         await cart.save();
+        return cart;
+    }
+
+    static async deleteCart(cartId) {
+        const cart = await ShoppingCart.findByIdAndDelete(cartId);
+        if (!cart) {
+            throw new Error("Cart not found");
+        }
+
         return cart;
     }
 }

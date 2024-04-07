@@ -7,8 +7,9 @@ import ShoppingCartController from "../controller/cart.controller.js";
 const router = Router();
 
 router.get("", ShoppingCartController.getAllCarts);
-router.get("/:id", ShoppingCartController.getCartById);
-router.post("", ShoppingCartController.addToCart);
-router.delete("/:id", ShoppingCartController.deleteCartProduct);
+router.get("/:cartId", ShoppingCartController.getCartById);
+router.post("/:cartId/:productId", ShoppingCartController.addToCart)
+router.delete("/carts/:id", ShoppingCartController.deleteCart);
+router.delete("/:cartId/:productId", ShoppingCartController.deleteCartProduct);
 
 export default router;

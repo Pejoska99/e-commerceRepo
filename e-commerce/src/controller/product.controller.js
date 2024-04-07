@@ -3,18 +3,7 @@
 import ProductService from "../services/product.service.js";
 
 export default class ProductController {
-    // static async getProducts( req, res){
-    //     try {
-    //         const products = await ProductService.getAll();
-    //         res.send(products);
-            
-    //     } catch (error) {
-    //         res.status(400).send({message: error.message});
-
-            
-    //     }
-    // }
-
+    
     static async getProducts(req, res) {
         try {
             const queryData = {
@@ -22,6 +11,8 @@ export default class ProductController {
                 name: req.query.name
 
             };
+
+         
             const products = await ProductService.getAll(queryData);
             res.send(products);
         } catch (error) {

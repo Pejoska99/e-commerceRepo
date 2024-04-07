@@ -7,15 +7,14 @@ export default class ShoppingCartController {
 
     static async addToCart(req, res) {
         try {
-            const { productId } = req.body;
-            const cart = await ShoppingCartService.addToCart(productId);
+            const { cartId, productId } = req.body;
+            const cart = await ShoppingCartService.addToCart(cartId,productId);
             res.status(201).send(cart);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
     }
     
-
 
 
     static async getAllCarts(req, res) {
@@ -39,12 +38,22 @@ export default class ShoppingCartController {
 
     static async deleteCartProduct(req, res) {
         try {
-            const cartId = req.params.id;
+            const cartId = req.params.cartId;
             const productId = req.params.productId;
             const cart = await ShoppingCartService.deleteCartProduct(cartId, productId);
             res.status(200).send(cart);
         } catch (error) {
             res.status(400).jsend({ message: error.message });
+        }
+    }
+
+    static async deleteCart(req, res) {
+        try {
+            const cartId = req.params.cartId;
+            const deletedCart = await ShoppingCartService.deleteCart(cartId);
+            res.status(200).send(deletedCart);
+        } catch (error) {
+            res.status(400).json({ message: error.message });
         }
     }
 }
