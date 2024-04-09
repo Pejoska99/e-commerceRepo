@@ -16,7 +16,7 @@ export default class ShoppingCartService {
 
         await product.save();
 
-        cart.products.push(product);
+        cart.products.push(product._id);
         await cart.save();
 
         return cart;
